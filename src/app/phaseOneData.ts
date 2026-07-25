@@ -1,5 +1,6 @@
 import type { KaTeXSource } from '../renderers/katex/katexAdapter';
 import type { MermaidSource } from '../renderers/mermaid/mermaidAdapter';
+import type { SvgSource } from '../renderers/svg/svgAdapter';
 
 export type ShellSection = {
   id: string;
@@ -9,6 +10,7 @@ export type ShellSection = {
   body: string[];
   mathBlocks?: KaTeXSource[];
   mermaidBlocks?: Array<Omit<MermaidSource, 'theme'>>;
+  svgBlocks?: SvgSource[];
 };
 
 export type ShellLesson = {
@@ -65,6 +67,14 @@ export const phaseOneLessons: ShellLesson[] = [
             sourceId: 'phase-2-mermaid-demo-flowchart',
             diagramId: 'phase-2-mermaid-demo-flowchart',
             source: 'flowchart LR\n  Source[Canonical source] --> Adapter[Mermaid adapter]\n  Adapter --> SVG[Rendered SVG]',
+          },
+        ],
+        svgBlocks: [
+          {
+            sourceId: 'phase-2-svg-demo-unit-square',
+            title: 'Unit square SVG',
+            markup:
+              '<svg width="180" height="180" role="img" aria-label="Unit square"><rect x="30" y="30" width="120" height="120" fill="none" stroke="currentColor" stroke-width="6"/><text x="90" y="170" text-anchor="middle" fill="currentColor">unit square</text></svg>',
           },
         ],
       },
