@@ -3,14 +3,14 @@ import { describe, expect, it } from 'vitest';
 import { SvgBlock } from './SvgBlock';
 
 describe('SvgBlock', () => {
-  it('mounts rendered SVG while preserving source markup on the host', async () => {
+  it('mounts rendered SVG without exposing source markup on the DOM host', async () => {
     const markup = '<svg width="100" height="100"><rect width="80" height="80"/></svg>';
     const { container } = render(
       <SvgBlock lessonId="demo" sectionId="math-renderers" source={{ sourceId: 'test-svg', markup, title: 'Test SVG' }} />,
     );
 
     await waitFor(() => expect(container.querySelector('svg[viewBox="0 0 100 100"]')).toBeInTheDocument());
-    expect(container.querySelector('[data-source-id="test-svg"]')).toHaveAttribute('data-source-svg', markup);
+    expect(container.querySelector('[data-source-id="test-svg"]')).not.toHaveAttribute('data-source-svg');
   });
 
   it('rerenders when the SVG source changes', async () => {
@@ -35,12 +35,12 @@ describe('SvgBlock', () => {
     await waitFor(() => expect(container.querySelector('circle')).toBeInTheDocument());
   });
 
-  it('renders a diagnostic and preserves source for invalid SVG', async () => {
+  it('renders a diagnostic without exposing invalid SVG on the DOM host', async () => {
     const { container } = render(
       <SvgBlock lessonId="demo" sectionId="math-renderers" source={{ sourceId: 'broken-svg', markup: '<div>nope</div>' }} />,
     );
 
     expect(await screen.findByRole('status')).toHaveTextContent('SVG source could not be parsed.');
-    expect(container.querySelector('[data-source-id="broken-svg"]')).toHaveAttribute('data-source-svg', '<div>nope</div>');
+    expect(container.querySelector('[data-source-id="broken-svg"]')).not.toHaveAttribute('data-source-svg');
   });
 });

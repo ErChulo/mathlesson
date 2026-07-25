@@ -203,12 +203,9 @@ function validateMedia(source: unknown): AdapterValidation<MediaSource> {
   return { ok: true, source, diagnostics };
 }
 
-function applyContainerMetadata(container: HTMLElement, source: MediaSource, sourceKey: string, identityKey: string): void {
+function applyContainerMetadata(container: HTMLElement, source: MediaSource): void {
   container.dataset.rendererAdapter = MEDIA_ADAPTER_ID;
   container.dataset.rendererSourceId = source.sourceId;
-  container.dataset.rendererSourceKey = sourceKey;
-  container.dataset.mediaIdentityKey = identityKey;
-  container.dataset.mediaSource = serializeMediaSource(source);
   container.dataset.mediaKind = source.kind;
 
   if (source.dimensions) {
@@ -366,7 +363,7 @@ function mountMedia({ source, container, context }: { source: MediaSource; conta
   }
 
   container.innerHTML = '';
-  applyContainerMetadata(container, source, sourceKey, identityKey);
+  applyContainerMetadata(container, source);
 
   if (hasVideoUrl(source)) return createVideoElement(source, container, context);
 
@@ -392,7 +389,7 @@ function updateMedia({
 
   const identityKey = getMediaIdentityKey(source);
   if (instance.identityKey === identityKey && instance.element instanceof HTMLVideoElement && hasVideoUrl(source)) {
-    applyContainerMetadata(container, source, sourceKey, identityKey);
+    applyContainerMetadata(container, source);
     applyVideoMetadata(instance.element, source, context.isVisible);
     instance.source = source;
     instance.sourceKey = sourceKey;
@@ -428,9 +425,6 @@ function unmountMedia({ instance, container, context }: { instance: MediaInstanc
   container.style.aspectRatio = '';
   delete container.dataset.rendererAdapter;
   delete container.dataset.rendererSourceId;
-  delete container.dataset.rendererSourceKey;
-  delete container.dataset.mediaIdentityKey;
-  delete container.dataset.mediaSource;
   delete container.dataset.mediaKind;
   mountedInstances.delete(container);
 }

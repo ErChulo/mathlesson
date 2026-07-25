@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { AdapterDiagnostic, RendererContext } from '../core/types';
-import { getSvgSourceKey, svgAdapter, type SvgSource } from './svgAdapter';
+import { svgAdapter, type SvgSource } from './svgAdapter';
 
 function createContext(diagnostics: AdapterDiagnostic[] = []): RendererContext {
   return {
@@ -38,7 +38,7 @@ describe('svgAdapter', () => {
     expect(svg).not.toBeNull();
     expect(svg).toHaveAttribute('viewBox', '0 0 120 120');
     expect(svg).toHaveAttribute('aria-label', 'Unit square');
-    expect(container.dataset.svgSource).toBe(svgSource.markup);
+    expect(container.dataset.svgSource).toBeUndefined();
     expect(instance.source).toBe(svgSource);
   });
 
@@ -78,7 +78,8 @@ describe('svgAdapter', () => {
 
     expect(nextInstance?.source).toEqual(nextSource);
     expect(container.querySelector('circle')).not.toBeNull();
-    expect(container.dataset.rendererSourceKey).toBe(getSvgSourceKey(nextSource));
+    expect(container.dataset.rendererSourceId).toBe(nextSource.sourceId);
+    expect(container.dataset.rendererSourceKey).toBeUndefined();
   });
 
   it('cleans up rendered SVG on unmount', () => {

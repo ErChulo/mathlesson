@@ -4,7 +4,6 @@ import type { AdapterDiagnostic, RendererContext } from '../../renderers/core/ty
 import {
   getMediaSourceKey,
   mediaAdapter,
-  serializeMediaSource,
   type MediaInstance,
   type MediaSource,
 } from '../../renderers/media/mediaAdapter';
@@ -45,7 +44,6 @@ export function MediaBlock({ source, lessonId, sectionId, adapter = mediaAdapter
       container.textContent = validation.diagnostics[0]?.message ?? 'Media source could not be rendered.';
       container.dataset.rendererAdapter = adapter.id;
       container.dataset.rendererSourceId = source.sourceId;
-      container.dataset.mediaSource = serializeMediaSource(source);
       setDiagnostics([...validation.diagnostics, ...nextDiagnostics]);
       return;
     }
@@ -98,7 +96,7 @@ export function MediaBlock({ source, lessonId, sectionId, adapter = mediaAdapter
   }, [adapter, lessonId, sectionId]);
 
   return (
-    <figure className="media-block" data-source-id={source.sourceId} data-source-media={serializeMediaSource(source)}>
+    <figure className="media-block" data-source-id={source.sourceId}>
       <div ref={containerRef} className="media-frame" aria-label={source.altText || source.caption || 'Media block'} />
       {source.caption ? <figcaption className="media-caption">{source.caption}</figcaption> : null}
       {source.transcript ? (

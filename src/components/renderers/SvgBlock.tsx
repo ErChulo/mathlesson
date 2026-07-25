@@ -57,7 +57,7 @@ export function SvgBlock({ source, lessonId, sectionId }: SvgBlockProps) {
   }, [lessonId, sectionId, source]);
 
   return (
-    <figure className="svg-block" data-source-id={source.sourceId} data-source-svg={source.markup}>
+    <figure className="svg-block" data-source-id={source.sourceId}>
       <div ref={containerRef} aria-label={source.title || 'Rendered SVG diagram'} />
       {diagnostics.length ? (
         <figcaption className="renderer-diagnostic" role="status">

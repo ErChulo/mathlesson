@@ -120,7 +120,6 @@ function mountKaTeX({
   container.innerHTML = renderedHtml;
   container.dataset.rendererAdapter = KATEX_ADAPTER_ID;
   container.dataset.rendererSourceId = source.sourceId;
-  container.dataset.rendererSourceKey = sourceKey;
 
   const instance: KaTeXInstance = { adapterId: KATEX_ADAPTER_ID, source, sourceKey, renderedHtml };
   mountedInstances.set(container, instance);
@@ -168,7 +167,6 @@ function unmountKaTeX({
   container.innerHTML = '';
   delete container.dataset.rendererAdapter;
   delete container.dataset.rendererSourceId;
-  delete container.dataset.rendererSourceKey;
   mountedInstances.delete(container);
 }
 

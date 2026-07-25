@@ -78,7 +78,7 @@ export function MermaidBlock({ source, lessonId, sectionId, theme, adapter = mer
   }, [adapter, lessonId, sectionId, source.diagramId, source.source, source.sourceId, theme]);
 
   return (
-    <figure className="mermaid-block" data-source-id={source.sourceId} data-source-mermaid={source.source}>
+    <figure className="mermaid-block" data-source-id={source.sourceId}>
       <div ref={containerRef} aria-label="Rendered Mermaid diagram" />
       {diagnostics.length ? (
         <figcaption className="renderer-diagnostic" role="status">

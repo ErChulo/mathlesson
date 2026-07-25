@@ -156,8 +156,6 @@ function mountSvg({ source, container, context }: { source: SvgSource; container
   container.innerHTML = renderedMarkup;
   container.dataset.rendererAdapter = SVG_ADAPTER_ID;
   container.dataset.rendererSourceId = source.sourceId;
-  container.dataset.rendererSourceKey = sourceKey;
-  container.dataset.svgSource = source.markup;
 
   const instance: SvgInstance = { adapterId: SVG_ADAPTER_ID, source, sourceKey, renderedMarkup };
   mountedInstances.set(container, instance);
@@ -190,8 +188,6 @@ function unmountSvg({ instance, container }: { instance: SvgInstance; container:
   container.innerHTML = '';
   delete container.dataset.rendererAdapter;
   delete container.dataset.rendererSourceId;
-  delete container.dataset.rendererSourceKey;
-  delete container.dataset.svgSource;
   mountedInstances.delete(container);
 }
 
