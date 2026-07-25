@@ -12,7 +12,9 @@ Renderer adapter infrastructure and native SVG rendering.
 
 The v4.9.22 baseline treats SVG as native inline DOM, preserves inline SVG in JSON and HTML exports, keeps it responsive through CSS, and repairs missing `viewBox` values from explicit width and height in quiz/student runtime paths.
 
-This slice implements explicit-source SVG rendering in the React shell. It validates SVG markup, rejects non-SVG roots, removes script and inline event-handler risks, removes `javascript:` URL attributes, repairs missing `viewBox` from width and height, preserves canonical source on the host and export path, avoids duplicate initialization for unchanged source, rerenders when source changes, and cleans generated DOM on unmount.
+This slice implements explicit-source SVG rendering in the React shell. It validates SVG markup, rejects non-SVG roots, removes script and inline event-handler risks, removes `javascript:` URL attributes, repairs missing `viewBox` from width and height, preserves canonical source on the typed source and export path, avoids duplicate initialization for unchanged source, rerenders when source changes, and cleans generated DOM on unmount.
+
+Invalid SVG markup shows a generic fallback in the live DOM. The canonical SVG markup remains available through the typed source object and future export paths, not by exposing raw markup in runtime DOM.
 
 ## Dependency Version
 
@@ -41,7 +43,7 @@ npm audit --audit-level=moderate
 node tools/analysis/verify-phase-0.mjs
 ```
 
-Focused test coverage includes valid SVG render, invalid source diagnostics, script and event-attribute sanitation, `javascript:` URL removal, missing `viewBox` repair, rerender with changed source, cleanup on unmount, source preservation for export, duplicate initialization guard, and validation result shape.
+Focused test coverage includes valid SVG render, invalid source diagnostics with a safe non-source fallback, script and event-attribute sanitation, `javascript:` URL removal, missing `viewBox` repair, rerender with changed source, cleanup on unmount, source preservation for export, duplicate initialization guard, and validation result shape.
 
 ## Limitations
 
