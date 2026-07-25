@@ -1,0 +1,32 @@
+[Download `mathlesson-v4.9.22-current-package.zip`](sandbox:/mnt/data/mathlesson-v4.9.22-current-package.zip)
+
+## Changes made
+
+* Built `mathlesson.v4.9.22.html` from `v4.9.21`.
+* Kept the working native MathLive keyboard behavior.
+* Added outside-click / outside-tap dismissal.
+* The keyboard now dismisses when the user taps outside both:
+
+  * the active `math-field`
+  * the native MathLive keyboard panel
+* Taps inside the MathLive keyboard should **not** dismiss it.
+* Preserved `Check` / quiz-submit keyboard dismissal.
+* Preserved iPhone bottom safe-area sizing.
+* Preserved JSXGraph mobile layout fix.
+* Applied the same fix to generated student exports.
+* JavaScript syntax check passed.
+* ZIP integrity check passed.
+
+## Manual testing checklist
+
+* Open `mathlesson.v4.9.22.html`.
+* Tap a MathLive math answer field.
+* Confirm the native MathLive keyboard opens.
+* Tap keys inside the MathLive keyboard.
+* Confirm the keyboard stays open while entering LaTeX.
+* Tap outside the math field and outside the keyboard.
+* Confirm the keyboard dismisses.
+* Reopen the keyboard, enter an answer, and press `Check`.
+* Confirm the keyboard dismisses and does not immediately reopen.
+* Repeat in iPhone portrait and landscape.
+

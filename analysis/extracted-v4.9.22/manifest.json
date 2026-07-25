@@ -1,0 +1,440 @@
+{
+  "source": "legacy/mathlesson-v4.9.22/mathlesson.v4.9.22.html",
+  "note": "Analysis-only extraction. Do not treat extracted files as production modules.",
+  "entries": [
+    {
+      "order": 1,
+      "tag": "script",
+      "attrs": {
+        "defer": true,
+        "src": "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+      },
+      "scriptKind": "classic",
+      "file": "001-script-classic.js",
+      "contentStart": {
+        "line": 9,
+        "column": 81,
+        "offset": 344
+      },
+      "contentEnd": {
+        "line": 9,
+        "column": 81,
+        "offset": 344
+      },
+      "length": 0,
+      "lines": 1
+    },
+    {
+      "order": 2,
+      "tag": "script",
+      "attrs": {
+        "defer": true,
+        "src": "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+      },
+      "scriptKind": "classic",
+      "file": "002-script-classic.js",
+      "contentStart": {
+        "line": 10,
+        "column": 95,
+        "offset": 448
+      },
+      "contentEnd": {
+        "line": 10,
+        "column": 95,
+        "offset": 448
+      },
+      "length": 0,
+      "lines": 1
+    },
+    {
+      "order": 3,
+      "tag": "script",
+      "attrs": {
+        "src": "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+      },
+      "scriptKind": "classic",
+      "file": "003-script-classic.js",
+      "contentStart": {
+        "line": 11,
+        "column": 78,
+        "offset": 535
+      },
+      "contentEnd": {
+        "line": 11,
+        "column": 78,
+        "offset": 535
+      },
+      "length": 0,
+      "lines": 1
+    },
+    {
+      "order": 4,
+      "tag": "script",
+      "attrs": {
+        "src": "https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.32.0/plotly.min.js"
+      },
+      "scriptKind": "classic",
+      "file": "004-script-classic.js",
+      "contentStart": {
+        "line": 12,
+        "column": 85,
+        "offset": 629
+      },
+      "contentEnd": {
+        "line": 12,
+        "column": 85,
+        "offset": 629
+      },
+      "length": 0,
+      "lines": 1
+    },
+    {
+      "order": 5,
+      "tag": "script",
+      "attrs": {
+        "src": "https://cdn.jsdelivr.net/npm/arquero@latest/dist/arquero.min.js"
+      },
+      "scriptKind": "classic",
+      "file": "005-script-classic.js",
+      "contentStart": {
+        "line": 13,
+        "column": 79,
+        "offset": 717
+      },
+      "contentEnd": {
+        "line": 13,
+        "column": 79,
+        "offset": 717
+      },
+      "length": 0,
+      "lines": 1
+    },
+    {
+      "order": 6,
+      "tag": "script",
+      "attrs": {
+        "src": "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"
+      },
+      "scriptKind": "classic",
+      "file": "006-script-classic.js",
+      "contentStart": {
+        "line": 17,
+        "column": 91,
+        "offset": 1136
+      },
+      "contentEnd": {
+        "line": 17,
+        "column": 91,
+        "offset": 1136
+      },
+      "length": 0,
+      "lines": 1
+    },
+    {
+      "order": 7,
+      "tag": "script",
+      "attrs": {
+        "src": "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"
+      },
+      "scriptKind": "classic",
+      "file": "007-script-classic.js",
+      "contentStart": {
+        "line": 18,
+        "column": 93,
+        "offset": 1238
+      },
+      "contentEnd": {
+        "line": 18,
+        "column": 93,
+        "offset": 1238
+      },
+      "length": 0,
+      "lines": 1
+    },
+    {
+      "order": 8,
+      "tag": "script",
+      "attrs": {
+        "src": "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"
+      },
+      "scriptKind": "classic",
+      "file": "008-script-classic.js",
+      "contentStart": {
+        "line": 19,
+        "column": 107,
+        "offset": 1354
+      },
+      "contentEnd": {
+        "line": 19,
+        "column": 107,
+        "offset": 1354
+      },
+      "length": 0,
+      "lines": 1
+    },
+    {
+      "order": 9,
+      "tag": "script",
+      "attrs": {
+        "src": "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"
+      },
+      "scriptKind": "classic",
+      "file": "009-script-classic.js",
+      "contentStart": {
+        "line": 20,
+        "column": 93,
+        "offset": 1456
+      },
+      "contentEnd": {
+        "line": 20,
+        "column": 93,
+        "offset": 1456
+      },
+      "length": 0,
+      "lines": 1
+    },
+    {
+      "order": 10,
+      "tag": "script",
+      "attrs": {
+        "src": "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"
+      },
+      "scriptKind": "classic",
+      "file": "010-script-classic.js",
+      "contentStart": {
+        "line": 21,
+        "column": 105,
+        "offset": 1570
+      },
+      "contentEnd": {
+        "line": 21,
+        "column": 105,
+        "offset": 1570
+      },
+      "length": 0,
+      "lines": 1
+    },
+    {
+      "order": 11,
+      "tag": "script",
+      "attrs": {
+        "src": "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"
+      },
+      "scriptKind": "classic",
+      "file": "011-script-classic.js",
+      "contentStart": {
+        "line": 24,
+        "column": 75,
+        "offset": 1686
+      },
+      "contentEnd": {
+        "line": 24,
+        "column": 75,
+        "offset": 1686
+      },
+      "length": 0,
+      "lines": 1
+    },
+    {
+      "order": 12,
+      "tag": "script",
+      "attrs": {},
+      "scriptKind": "classic",
+      "file": "012-script-classic.js",
+      "contentStart": {
+        "line": 25,
+        "column": 9,
+        "offset": 1704
+      },
+      "contentEnd": {
+        "line": 33,
+        "column": 1,
+        "offset": 2030
+      },
+      "length": 326,
+      "lines": 9
+    },
+    {
+      "order": 13,
+      "tag": "script",
+      "attrs": {
+        "src": "https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"
+      },
+      "scriptKind": "classic",
+      "file": "013-script-classic.js",
+      "contentStart": {
+        "line": 37,
+        "column": 77,
+        "offset": 2262
+      },
+      "contentEnd": {
+        "line": 37,
+        "column": 77,
+        "offset": 2262
+      },
+      "length": 0,
+      "lines": 1
+    },
+    {
+      "order": 14,
+      "tag": "script",
+      "attrs": {
+        "src": "https://cdn.jsdelivr.net/npm/mathjs@12.4.2/lib/browser/math.min.js"
+      },
+      "scriptKind": "classic",
+      "file": "014-script-classic.js",
+      "contentStart": {
+        "line": 40,
+        "column": 82,
+        "offset": 2391
+      },
+      "contentEnd": {
+        "line": 40,
+        "column": 82,
+        "offset": 2391
+      },
+      "length": 0,
+      "lines": 1
+    },
+    {
+      "order": 15,
+      "tag": "script",
+      "attrs": {
+        "src": "https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/all.min.js"
+      },
+      "scriptKind": "classic",
+      "file": "015-script-classic.js",
+      "contentStart": {
+        "line": 41,
+        "column": 71,
+        "offset": 2471
+      },
+      "contentEnd": {
+        "line": 41,
+        "column": 71,
+        "offset": 2471
+      },
+      "length": 0,
+      "lines": 1
+    },
+    {
+      "order": 16,
+      "tag": "script",
+      "attrs": {
+        "src": "https://cdn.jsdelivr.net/npm/simple-statistics@7.8.8/dist/simple-statistics.min.js"
+      },
+      "scriptKind": "classic",
+      "file": "016-script-classic.js",
+      "contentStart": {
+        "line": 43,
+        "column": 98,
+        "offset": 2615
+      },
+      "contentEnd": {
+        "line": 43,
+        "column": 98,
+        "offset": 2615
+      },
+      "length": 0,
+      "lines": 1
+    },
+    {
+      "order": 17,
+      "tag": "script",
+      "attrs": {
+        "src": "https://cdn.jsdelivr.net/npm/jstat@1.9.6/dist/jstat.min.js"
+      },
+      "scriptKind": "classic",
+      "file": "017-script-classic.js",
+      "contentStart": {
+        "line": 44,
+        "column": 74,
+        "offset": 2698
+      },
+      "contentEnd": {
+        "line": 44,
+        "column": 74,
+        "offset": 2698
+      },
+      "length": 0,
+      "lines": 1
+    },
+    {
+      "order": 18,
+      "tag": "style",
+      "attrs": {},
+      "file": "018-style-inline.css",
+      "contentStart": {
+        "line": 46,
+        "column": 8,
+        "offset": 2716
+      },
+      "contentEnd": {
+        "line": 2588,
+        "column": 1,
+        "offset": 105730
+      },
+      "length": 103014,
+      "lines": 2543
+    },
+    {
+      "order": 19,
+      "tag": "script",
+      "attrs": {
+        "type": "module"
+      },
+      "scriptKind": "module",
+      "file": "019-script-module.js",
+      "contentStart": {
+        "line": 5593,
+        "column": 23,
+        "offset": 275661
+      },
+      "contentEnd": {
+        "line": 13458,
+        "column": 1,
+        "offset": 719768
+      },
+      "length": 444107,
+      "lines": 7866
+    },
+    {
+      "order": 20,
+      "tag": "script",
+      "attrs": {},
+      "scriptKind": "classic",
+      "file": "020-script-classic.js",
+      "contentStart": {
+        "line": 13460,
+        "column": 9,
+        "offset": 719787
+      },
+      "contentEnd": {
+        "line": 13492,
+        "column": 1,
+        "offset": 723062
+      },
+      "length": 3275,
+      "lines": 33
+    },
+    {
+      "order": 21,
+      "tag": "script",
+      "attrs": {},
+      "scriptKind": "classic",
+      "file": "021-script-classic.js",
+      "contentStart": {
+        "line": 13500,
+        "column": 9,
+        "offset": 723489
+      },
+      "contentEnd": {
+        "line": 13663,
+        "column": 1,
+        "offset": 743240
+      },
+      "length": 19751,
+      "lines": 164
+    }
+  ]
+}

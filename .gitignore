@@ -1,0 +1,11 @@
+.codegraph/
+node_modules/
+dist/
+build/
+coverage/
+.vitepress/cache/
+.vitepress/dist/
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+*.log
+*.tmp

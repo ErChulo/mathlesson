@@ -1,0 +1,65 @@
+Bring these items:
+
+1. **Current confirmed working package**
+
+   * `mathlesson-v4.9.22-current-package.zip`
+   * or whatever later version you confirm as stable after testing.
+
+2. **The working HTML file**
+
+   * `mathlesson.v4.9.22.html`
+   * This is the source we will decompose into React components.
+
+3. **The generated `_inline.js` or extracted JS file**, if you still have it.
+
+   * Not needed for deployment, but useful for migration because the app logic is easier to split from JS than from one giant HTML file.
+
+4. **README / START_HERE**
+
+   * `README.md`
+   * `START_HERE.md`
+   * These help preserve current behavior, test protocol, and version notes.
+
+5. **A short manual test report**
+   Include what currently works and what must not regress:
+
+   * MathLive keyboard opens only on math input.
+   * MathLive keyboard dismisses on `Check`.
+   * MathLive keyboard dismisses on outside click.
+   * iPhone portrait/landscape behavior.
+   * JSXGraph renders after cellphone layout fix.
+   * Mermaid renders.
+   * Plotly renders.
+   * Quiz and inline exercise answer checking works.
+
+6. **Your target migration decision**
+   Pick one:
+
+   * **A. Preserve current UI exactly, migrate internals only.**
+   * **B. Redesign the UI while migrating.**
+
+   I strongly recommend **A first**.
+
+7. **Preferred stack confirmation**
+   Proposed stack:
+
+   ```text
+   Vite + React + TypeScript + GSAP
+   MathLive
+   KaTeX
+   Mermaid
+   JSXGraph
+   Plotly
+   Arquero
+   simple-statistics / jStat
+   math.js / Nerdamer
+   ```
+
+8. **Whether this should become**
+
+   * a single-page authoring app only,
+   * a lesson player only,
+   * or both authoring + student player.
+
+The first migration step should be an **architecture extraction**, not coding: split the current monolith into modules such as `LessonPlayer`, `AuthorWorkspace`, `QuizEngine`, `ExerciseEngine`, `MathLiveAdapter`, `RenderPipeline`, `ExportPipeline`, and `LessonSchema`.
+
