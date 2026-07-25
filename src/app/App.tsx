@@ -1,5 +1,6 @@
 import { startTransition, useEffect, useState } from 'react';
 import { KaTeXBlock } from '../components/renderers/KaTeXBlock';
+import { MediaBlock } from '../components/renderers/MediaBlock';
 import { MermaidBlock } from '../components/renderers/MermaidBlock';
 import { SvgBlock } from '../components/renderers/SvgBlock';
 import { usePersistentJsonState, usePersistentRawState } from '../hooks/usePersistentState';
@@ -250,6 +251,9 @@ function LessonPanel({ lessonId, section, theme }: { lessonId: string; section: 
       ))}
       {section.svgBlocks?.map((source) => (
         <SvgBlock key={source.sourceId} lessonId={lessonId} sectionId={section.id} source={source} />
+      ))}
+      {section.mediaBlocks?.map((source) => (
+        <MediaBlock key={source.sourceId} lessonId={lessonId} sectionId={section.id} source={source} />
       ))}
       <div className="phase-boundary" role="note">
         Phase 2 mounts only approved adapter slices here. Quiz, authoring, import/export, MathLive, and other renderer

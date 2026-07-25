@@ -1,4 +1,5 @@
 import type { KaTeXSource } from '../renderers/katex/katexAdapter';
+import type { MediaSource } from '../renderers/media/mediaAdapter';
 import type { MermaidSource } from '../renderers/mermaid/mermaidAdapter';
 import type { SvgSource } from '../renderers/svg/svgAdapter';
 
@@ -9,6 +10,7 @@ export type ShellSection = {
   heading: string;
   body: string[];
   mathBlocks?: KaTeXSource[];
+  mediaBlocks?: MediaSource[];
   mermaidBlocks?: Array<Omit<MermaidSource, 'theme'>>;
   svgBlocks?: SvgSource[];
 };
@@ -75,6 +77,17 @@ export const phaseOneLessons: ShellLesson[] = [
             title: 'Unit square SVG',
             markup:
               '<svg width="180" height="180" role="img" aria-label="Unit square"><rect x="30" y="30" width="120" height="120" fill="none" stroke="currentColor" stroke-width="6"/><text x="90" y="170" text-anchor="middle" fill="currentColor">unit square</text></svg>',
+          },
+        ],
+        mediaBlocks: [
+          {
+            sourceId: 'phase-2-manim-video-placeholder',
+            kind: 'video-placeholder',
+            placeholderId: 'manim-unit-circle-demo',
+            caption: 'Manim video placeholder with preserved source metadata.',
+            altText: 'Placeholder for a future Manim unit circle animation.',
+            dimensions: { width: 16, height: 9 },
+            transcript: 'A future animation will trace points moving around the unit circle.',
           },
         ],
       },
