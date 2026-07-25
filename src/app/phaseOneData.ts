@@ -1,4 +1,5 @@
 import type { KaTeXSource } from '../renderers/katex/katexAdapter';
+import type { MermaidSource } from '../renderers/mermaid/mermaidAdapter';
 
 export type ShellSection = {
   id: string;
@@ -7,6 +8,7 @@ export type ShellSection = {
   heading: string;
   body: string[];
   mathBlocks?: KaTeXSource[];
+  mermaidBlocks?: Array<Omit<MermaidSource, 'theme'>>;
 };
 
 export type ShellLesson = {
@@ -56,6 +58,13 @@ export const phaseOneLessons: ShellLesson[] = [
             sourceId: 'phase-2-katex-demo-inline',
             tex: 'a^2 + b^2 = c^2',
             displayMode: false,
+          },
+        ],
+        mermaidBlocks: [
+          {
+            sourceId: 'phase-2-mermaid-demo-flowchart',
+            diagramId: 'phase-2-mermaid-demo-flowchart',
+            source: 'flowchart LR\n  Source[Canonical source] --> Adapter[Mermaid adapter]\n  Adapter --> SVG[Rendered SVG]',
           },
         ],
       },

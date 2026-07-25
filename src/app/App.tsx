@@ -1,5 +1,6 @@
 import { startTransition, useEffect, useState } from 'react';
 import { KaTeXBlock } from '../components/renderers/KaTeXBlock';
+import { MermaidBlock } from '../components/renderers/MermaidBlock';
 import { usePersistentJsonState, usePersistentRawState } from '../hooks/usePersistentState';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import {
@@ -222,7 +223,7 @@ export function App() {
       <main className="content" id="content" tabIndex={-1}>
         <section className="panel-card" aria-labelledby="panel-heading">
           {'heading' in activePanel ? (
-            <LessonPanel lessonId={lesson.key} section={activePanel} />
+            <LessonPanel lessonId={lesson.key} section={activePanel} theme={theme} />
           ) : (
             <AdvancedPanelCard panel={activePanel} />
           )}
@@ -232,7 +233,7 @@ export function App() {
   );
 }
 
-function LessonPanel({ lessonId, section }: { lessonId: string; section: ShellSection }) {
+function LessonPanel({ lessonId, section, theme }: { lessonId: string; section: ShellSection; theme: ThemeName }) {
   return (
     <>
       <p className="panel-eyebrow">{section.eyebrow}</p>
@@ -242,6 +243,9 @@ function LessonPanel({ lessonId, section }: { lessonId: string; section: ShellSe
       ))}
       {section.mathBlocks?.map((source) => (
         <KaTeXBlock key={source.sourceId} lessonId={lessonId} sectionId={section.id} source={source} />
+      ))}
+      {section.mermaidBlocks?.map((source) => (
+        <MermaidBlock key={source.sourceId} lessonId={lessonId} sectionId={section.id} source={source} theme={theme} />
       ))}
       <div className="phase-boundary" role="note">
         Phase 2 mounts only approved adapter slices here. Quiz, authoring, import/export, MathLive, and other renderer
