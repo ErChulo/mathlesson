@@ -38,16 +38,20 @@ describe('KaTeXBlock', () => {
     await waitFor(() => expect(container.textContent).toContain('y'));
   });
 
-  it('renders a diagnostic without exposing invalid TeX on the DOM host', async () => {
+  it('renders a safe fallback diagnostic without exposing invalid TeX on the DOM host', async () => {
     const { container } = render(
       <KaTeXBlock
         lessonId="demo"
         sectionId="math-renderers"
-        source={{ sourceId: 'broken-katex', tex: '\\def', displayMode: true }}
+        source={{ sourceId: 'broken-katex', tex: '\\notACommand{raw-secret}', displayMode: true }}
       />,
     );
 
     expect(await screen.findByRole('status')).toHaveTextContent('KaTeX could not render this source.');
     expect(container.querySelector('[data-source-id="broken-katex"]')).not.toHaveAttribute('data-source-tex');
+    expect(container.querySelector('[aria-label="Rendered mathematical expression"]')).toHaveTextContent(
+      'Math expression could not be rendered.',
+    );
+    expect(container).not.toHaveTextContent('raw-secret');
   });
 });

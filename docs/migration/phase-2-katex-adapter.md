@@ -14,6 +14,8 @@ The v4.9.22 baseline renders TeX/LaTeX with KaTeX, keeps source HTML as the dura
 
 This slice implements an explicit-source KaTeX adapter for the React shell. It validates a `KaTeXSource`, renders with KaTeX, reports diagnostics for invalid TeX, avoids duplicate initialization for unchanged source, rerenders when source changes, cleans generated DOM on unmount, and exports the canonical source object for future export paths.
 
+Invalid TeX renders a generic fallback in the live DOM. The canonical TeX remains available through the typed source object and future export paths, not by exposing raw TeX in the runtime DOM.
+
 ## Dependency Version
 
 Baseline audit evidence records KaTeX `0.16.9` in `docs/audit/dependency-inventory.md`.
@@ -48,7 +50,7 @@ npm audit --audit-level=moderate
 node tools/analysis/verify-phase-0.mjs
 ```
 
-Focused test coverage includes valid block math render, valid inline math render, invalid TeX diagnostics, rerender with changed source, cleanup on unmount, source preservation for export, duplicate initialization guard, and validation result shape.
+Focused test coverage includes valid block math render, valid inline math render, invalid TeX diagnostics with a safe non-source fallback, rerender with changed source, cleanup on unmount, source preservation for export, duplicate initialization guard, and validation result shape.
 
 ## Limitations
 
