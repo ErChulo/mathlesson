@@ -12,7 +12,9 @@ Renderer adapter infrastructure and native browser media placeholders.
 
 The v4.9.22 baseline treats Manim/video blocks as browser-native media. It ensures videos have controls, `preload="metadata"`, `playsinline`, a source-derived title, duplicate initialization protection through `data-ml-video-ready`, and a visible load-error note when a video cannot load.
 
-This slice implements explicit-source media rendering in the React shell. It validates video or placeholder metadata, allows deferred placeholders without blocking navigation, mounts native `<video>` elements only when a URL is provided, preserves canonical media source metadata on the host and export path, guards duplicate initialization, defers `video.load()` for hidden containers, updates same-identity video metadata without replacing the element, reports load-error diagnostics, and pauses/removes adapter-owned media on cleanup.
+This slice implements explicit-source media rendering in the React shell. It validates video or placeholder metadata, allows deferred placeholders without blocking navigation, mounts native `<video>` elements only when a URL is provided, preserves canonical media source metadata on the typed source and export path, guards duplicate initialization, defers `video.load()` for hidden containers, updates same-identity video metadata without replacing the element, reports load-error diagnostics, and pauses/removes adapter-owned media on cleanup.
+
+Video load errors show a generic fallback note in the live DOM. The canonical media URL remains available through the typed source object and future export paths, not by exposing raw URLs in runtime failure text.
 
 ## Dependency Version
 
@@ -41,7 +43,7 @@ npm audit --audit-level=moderate
 node tools/analysis/verify-phase-0.mjs
 ```
 
-Focused test coverage includes valid video source validation, native video attributes, placeholder rendering, missing-media warnings, invalid media types, invalid dimensions, load-error notes and diagnostics, hidden-container load deferral, same-identity metadata updates, cleanup, export-source preservation, and duplicate initialization protection.
+Focused test coverage includes valid video source validation, native video attributes, placeholder rendering, missing-media warnings, invalid media types, invalid dimensions, safe load-error notes and diagnostics, hidden-container load deferral, same-identity metadata updates, cleanup, export-source preservation, and duplicate initialization protection.
 
 ## Limitations
 
