@@ -4,6 +4,8 @@ import { createLifecycleInstance, hasSameLifecycleSource, type RendererLifecycle
 import type { AdapterDiagnostic, RendererContext } from '../../renderers/core/types';
 import { getKaTeXSourceKey, katexAdapter, type KaTeXInstance, type KaTeXSource } from '../../renderers/katex/katexAdapter';
 
+const KATEX_SAFE_FALLBACK = 'Math expression could not be rendered.';
+
 type KaTeXBlockProps = {
   source: KaTeXSource;
   lessonId: string;
@@ -39,7 +41,7 @@ export function KaTeXBlock({ source, lessonId, sectionId }: KaTeXBlockProps) {
     }
 
     if (!validation.ok) {
-      container.textContent = source.tex;
+      container.textContent = KATEX_SAFE_FALLBACK;
       container.dataset.rendererAdapter = katexAdapter.id;
       container.dataset.rendererSourceId = source.sourceId;
       setDiagnostics([...validation.diagnostics, ...nextDiagnostics]);
