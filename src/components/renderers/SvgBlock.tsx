@@ -3,6 +3,8 @@ import { createLifecycleInstance, hasSameLifecycleSource, type RendererLifecycle
 import type { AdapterDiagnostic, RendererContext } from '../../renderers/core/types';
 import { getSvgSourceKey, svgAdapter, type SvgInstance, type SvgSource } from '../../renderers/svg/svgAdapter';
 
+const SVG_SAFE_FALLBACK = 'SVG diagram could not be rendered.';
+
 type SvgBlockProps = {
   source: SvgSource;
   lessonId: string;
@@ -38,7 +40,7 @@ export function SvgBlock({ source, lessonId, sectionId }: SvgBlockProps) {
     }
 
     if (!validation.ok) {
-      container.textContent = source.markup;
+      container.textContent = SVG_SAFE_FALLBACK;
       container.dataset.rendererAdapter = svgAdapter.id;
       container.dataset.rendererSourceId = source.sourceId;
       setDiagnostics([...validation.diagnostics, ...nextDiagnostics]);

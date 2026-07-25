@@ -35,12 +35,18 @@ describe('SvgBlock', () => {
     await waitFor(() => expect(container.querySelector('circle')).toBeInTheDocument());
   });
 
-  it('renders a diagnostic without exposing invalid SVG on the DOM host', async () => {
+  it('renders a safe fallback diagnostic without exposing invalid SVG on the DOM host', async () => {
     const { container } = render(
-      <SvgBlock lessonId="demo" sectionId="math-renderers" source={{ sourceId: 'broken-svg', markup: '<div>nope</div>' }} />,
+      <SvgBlock
+        lessonId="demo"
+        sectionId="math-renderers"
+        source={{ sourceId: 'broken-svg', markup: '<div>raw-secret</div>' }}
+      />,
     );
 
     expect(await screen.findByRole('status')).toHaveTextContent('SVG source could not be parsed.');
     expect(container.querySelector('[data-source-id="broken-svg"]')).not.toHaveAttribute('data-source-svg');
+    expect(container.querySelector('[aria-label="Rendered SVG diagram"]')).toHaveTextContent('SVG diagram could not be rendered.');
+    expect(container).not.toHaveTextContent('raw-secret');
   });
 });
