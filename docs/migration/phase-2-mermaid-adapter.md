@@ -12,7 +12,9 @@ Renderer adapter infrastructure and Mermaid rendering.
 
 The v4.9.22 baseline renders Mermaid diagrams from `pre.mermaid` source text, initializes Mermaid with `startOnLoad: false`, uses Mermaid major version `11`, preserves source separately from rendered SVG, rerenders from source on theme refresh, reports errors inline, guards duplicate initialization, and treats hidden-container rendering as a known risk.
 
-This slice implements explicit-source Mermaid rendering in the React shell. It validates known diagram starts, renders source through Mermaid, preserves canonical source on the host and export path, records diagnostics for invalid or failed renders, prevents duplicate initialization for unchanged source, rerenders when source or theme changes, sanitizes generated SVG for scripts and inline event handlers, and cleans generated SVG on unmount.
+This slice implements explicit-source Mermaid rendering in the React shell. It validates known diagram starts, renders source through Mermaid, preserves canonical source on the typed source and export path, records diagnostics for invalid or failed renders, prevents duplicate initialization for unchanged source, rerenders when source or theme changes, sanitizes generated SVG for scripts and inline event handlers, and cleans generated SVG on unmount.
+
+Invalid source and Mermaid render failures show a generic fallback in the live DOM. The canonical Mermaid source remains available through the typed source object and future export paths, not by exposing raw diagram source in runtime DOM.
 
 ## Dependency Version
 
@@ -45,7 +47,7 @@ npm audit --audit-level=moderate
 node tools/analysis/verify-phase-0.mjs
 ```
 
-Focused test coverage includes valid Mermaid render, invalid source diagnostics, render error diagnostics, rerender with changed source, cleanup on unmount, source preservation for export, duplicate initialization guard, hidden-container diagnostic, SVG sanitation, and validation result shape.
+Focused test coverage includes valid Mermaid render, invalid source diagnostics with a safe non-source fallback, render error diagnostics with a safe non-source fallback, rerender with changed source, cleanup on unmount, source preservation for export, duplicate initialization guard, hidden-container diagnostic, SVG sanitation, and validation result shape.
 
 ## Limitations
 

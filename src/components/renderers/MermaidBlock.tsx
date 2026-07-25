@@ -8,6 +8,8 @@ import {
   type MermaidSource,
 } from '../../renderers/mermaid/mermaidAdapter';
 
+const MERMAID_SAFE_FALLBACK = 'Mermaid diagram could not be rendered.';
+
 type MermaidBlockProps = {
   source: Omit<MermaidSource, 'theme'>;
   lessonId: string;
@@ -49,7 +51,7 @@ export function MermaidBlock({ source, lessonId, sectionId, theme, adapter = mer
     }
 
     if (!validation.ok) {
-      container.textContent = adapterSource.source;
+      container.textContent = MERMAID_SAFE_FALLBACK;
       container.dataset.rendererAdapter = adapter.id;
       container.dataset.rendererSourceId = adapterSource.sourceId;
       setDiagnostics([...validation.diagnostics, ...nextDiagnostics]);
