@@ -1,9 +1,12 @@
+import type { KaTeXSource } from '../renderers/katex/katexAdapter';
+
 export type ShellSection = {
   id: string;
   label: string;
   eyebrow: string;
   heading: string;
   body: string[];
+  mathBlocks?: KaTeXSource[];
 };
 
 export type ShellLesson = {
@@ -41,7 +44,19 @@ export const phaseOneLessons: ShellLesson[] = [
         heading: 'Renderer container boundary',
         body: [
           'The eventual renderer host will attach adapter lifecycles to stable DOM containers.',
-          'For Phase 1, this shell only reserves layout space and keeps renderer APIs out of React components.',
+          'Phase 2 starts with one narrow adapter at a time. KaTeX is mounted through a dedicated host while other renderers remain deferred.',
+        ],
+        mathBlocks: [
+          {
+            sourceId: 'phase-2-katex-demo-display',
+            tex: 'E = mc^2',
+            displayMode: true,
+          },
+          {
+            sourceId: 'phase-2-katex-demo-inline',
+            tex: 'a^2 + b^2 = c^2',
+            displayMode: false,
+          },
         ],
       },
       {
