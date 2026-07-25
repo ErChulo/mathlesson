@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 const root = dirname(dirname(dirname(fileURLToPath(import.meta.url))));
 const failures = [];
 const notes = [];
+const enforcePhase0Boundary = process.argv.includes('--strict-boundary');
 
 function rel(path) {
   return path.replace(`${root}/`, '');
@@ -151,6 +152,14 @@ function verifyPhase0Boundary() {
   }
 }
 
+function noteSkippedPhase0Boundary() {
+  const srcPath = join(root, 'src');
+  const packagePath = join(root, 'package.json');
+  if (existsSync(srcPath) || existsSync(packagePath)) {
+    notes.push('Phase 0 source boundary check skipped because later-phase app files exist. Use --strict-boundary on the Phase 0 branch.');
+  }
+}
+
 function verifySkills() {
   const lockPath = join(root, 'skills-lock.json');
   const skillsDir = join(root, '.agents/skills');
@@ -208,7 +217,11 @@ verifySha256Sums();
 verifyAuditOutput();
 verifyExtractManifest();
 verifyRequiredDocs();
-verifyPhase0Boundary();
+if (enforcePhase0Boundary) {
+  verifyPhase0Boundary();
+} else {
+  noteSkippedPhase0Boundary();
+}
 verifySkills();
 verifyGitignore();
 
