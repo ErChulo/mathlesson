@@ -60,7 +60,7 @@ export function KaTeXBlock({ source, lessonId, sectionId }: KaTeXBlockProps) {
   const className = source.displayMode ? 'katex-block display' : 'katex-block inline';
 
   return (
-    <figure className={className} data-source-tex={source.tex} data-source-id={source.sourceId}>
+    <figure className={className} data-source-id={source.sourceId}>
       <div ref={containerRef} aria-label="Rendered mathematical expression" />
       {diagnostics.length ? (
         <figcaption className="renderer-diagnostic" role="status">

@@ -218,12 +218,10 @@ function createPlotlyConfig(source: PlotlySource): PlotlyConfig {
   return { displayModeBar: false, responsive: true, ...(source.config ?? {}) };
 }
 
-function applyContainerMetadata(container: HTMLElement, source: PlotlySource, sourceKey: string): void {
+function applyContainerMetadata(container: HTMLElement, source: PlotlySource): void {
   container.dataset.rendererAdapter = PLOTLY_ADAPTER_ID;
   container.dataset.rendererSourceId = source.sourceId;
-  container.dataset.rendererSourceKey = sourceKey;
   container.dataset.plotlyPlotId = source.plotId;
-  container.dataset.plotlySource = serializePlotlySource(source);
   container.dataset.plotlyTraceCount = String(source.data.length);
 
   if (source.height !== undefined) {
@@ -322,7 +320,7 @@ export function createPlotlyAdapter(rendererProvider: PlotlyRendererProvider): R
     if (existing) unmountPlotly({ instance: existing, container, context });
 
     container.innerHTML = '';
-    applyContainerMetadata(container, source, sourceKey);
+    applyContainerMetadata(container, source);
 
     const instance: PlotlyInstance = {
       adapterId: PLOTLY_ADAPTER_ID,
@@ -371,7 +369,7 @@ export function createPlotlyAdapter(rendererProvider: PlotlyRendererProvider): R
     }
 
     try {
-      applyContainerMetadata(container, source, sourceKey);
+      applyContainerMetadata(container, source);
       await instance.renderer.react(container, source.data, createPlotlyLayout(source, context), createPlotlyConfig(source));
       if (mountedInstances.get(container) !== instance) return instance;
 
@@ -424,10 +422,8 @@ export function createPlotlyAdapter(rendererProvider: PlotlyRendererProvider): R
     container.style.minHeight = '';
     delete container.dataset.rendererAdapter;
     delete container.dataset.rendererSourceId;
-    delete container.dataset.rendererSourceKey;
     delete container.dataset.plotlyPlotId;
     delete container.dataset.plotlyRendered;
-    delete container.dataset.plotlySource;
     delete container.dataset.plotlyTraceCount;
     mountedInstances.delete(container);
   }

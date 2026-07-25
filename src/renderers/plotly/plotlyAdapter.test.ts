@@ -3,7 +3,6 @@ import type { AdapterDiagnostic, RendererContext } from '../core/types';
 import {
   createPlotlyAdapter,
   createPlotlyThemeRelayout,
-  getPlotlySourceKey,
   type PlotlyRenderer,
   type PlotlySource,
 } from './plotlyAdapter';
@@ -84,7 +83,7 @@ describe('plotlyAdapter', () => {
     );
     expect(container.dataset.rendererAdapter).toBe('plotly');
     expect(container.dataset.plotlyPlotId).toBe(plotlySource.plotId);
-    expect(container.dataset.plotlySource).toBe(getPlotlySourceKey(plotlySource));
+    expect(container.dataset.plotlySource).toBeUndefined();
     expect(container.style.minHeight).toBe('320px');
     expect(instance.mounted).toBe(true);
   });
@@ -131,7 +130,8 @@ describe('plotlyAdapter', () => {
 
     expect(nextInstance).toBe(instance);
     expect(renderer.react).toHaveBeenCalledWith(container, nextSource.data, expect.any(Object), expect.any(Object));
-    expect(container.dataset.plotlySource).toBe(getPlotlySourceKey(nextSource));
+    expect(nextInstance?.source).toEqual(nextSource);
+    expect(container.dataset.plotlySource).toBeUndefined();
   });
 
   it('resizes and applies theme relayout to mounted plots', async () => {

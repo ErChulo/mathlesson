@@ -180,8 +180,6 @@ export function createMermaidAdapter(rendererProvider: MermaidRendererProvider):
       container.innerHTML = renderedSvg;
       container.dataset.rendererAdapter = MERMAID_ADAPTER_ID;
       container.dataset.rendererSourceId = source.sourceId;
-      container.dataset.rendererSourceKey = sourceKey;
-      container.dataset.mermaidSource = source.source;
       if (result.bindFunctions) result.bindFunctions(container);
 
       const instance: MermaidInstance = { adapterId: MERMAID_ADAPTER_ID, source, sourceKey, renderedSvg };
@@ -230,8 +228,6 @@ export function createMermaidAdapter(rendererProvider: MermaidRendererProvider):
     container.innerHTML = '';
     delete container.dataset.rendererAdapter;
     delete container.dataset.rendererSourceId;
-    delete container.dataset.rendererSourceKey;
-    delete container.dataset.mermaidSource;
     mountedInstances.delete(container);
   }
 

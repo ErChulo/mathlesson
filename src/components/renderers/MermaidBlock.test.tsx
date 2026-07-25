@@ -6,13 +6,13 @@ import { MermaidBlock } from './MermaidBlock';
 function createTestAdapter() {
   const renderer: MermaidRenderer = {
     initialize: () => undefined,
-    render: (id, source) => ({ svg: `<svg data-render-id="${id}" data-source-length="${source.length}"></svg>` }),
+    render: (id, source) => ({ svg: `<svg data-render-id="${id}" data-render-length="${source.length}"></svg>` }),
   };
   return createMermaidAdapter(renderer);
 }
 
 describe('MermaidBlock', () => {
-  it('mounts rendered Mermaid output without exposing raw source first', async () => {
+  it('mounts rendered Mermaid output without exposing raw source on the DOM host', async () => {
     const { container } = render(
       <MermaidBlock
         adapter={createTestAdapter()}
@@ -24,10 +24,7 @@ describe('MermaidBlock', () => {
     );
 
     await waitFor(() => expect(container.querySelector('svg[data-render-id="test-mermaid"]')).toBeInTheDocument());
-    expect(container.querySelector('[data-source-id="test-mermaid"]')).toHaveAttribute(
-      'data-source-mermaid',
-      'flowchart LR\n  A --> B',
-    );
+    expect(container.querySelector('[data-source-id="test-mermaid"]')).not.toHaveAttribute('data-source-mermaid');
   });
 
   it('rerenders when source changes', async () => {
@@ -45,7 +42,7 @@ describe('MermaidBlock', () => {
     );
 
     await waitFor(() =>
-      expect(container.querySelector(`svg[data-source-length="${firstSource.length}"]`)).toBeInTheDocument(),
+      expect(container.querySelector(`svg[data-render-length="${firstSource.length}"]`)).toBeInTheDocument(),
     );
 
     rerender(
@@ -59,11 +56,11 @@ describe('MermaidBlock', () => {
     );
 
     await waitFor(() =>
-      expect(container.querySelector(`svg[data-source-length="${nextSource.length}"]`)).toBeInTheDocument(),
+      expect(container.querySelector(`svg[data-render-length="${nextSource.length}"]`)).toBeInTheDocument(),
     );
   });
 
-  it('renders a diagnostic and preserves source for invalid Mermaid input', async () => {
+  it('renders a diagnostic without exposing invalid Mermaid source on the DOM host', async () => {
     const { container } = render(
       <MermaidBlock
         adapter={createTestAdapter()}
@@ -75,6 +72,6 @@ describe('MermaidBlock', () => {
     );
 
     expect(await screen.findByRole('status')).toHaveTextContent('Mermaid source must start with a known diagram type.');
-    expect(container.querySelector('[data-source-id="broken-mermaid"]')).toHaveAttribute('data-source-mermaid', 'not a diagram');
+    expect(container.querySelector('[data-source-id="broken-mermaid"]')).not.toHaveAttribute('data-source-mermaid');
   });
 });

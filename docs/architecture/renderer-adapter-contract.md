@@ -127,6 +127,8 @@ Renderer hosts added later must provide a single stable `HTMLElement`, a block i
 
 The adapter source object is canonical. Generated DOM, generated SVG, Plotly instances, JSXGraph boards, MathLive fields, tables, charts, and media elements are runtime artifacts. Authoring, JSON export, student export, Reveal export, print, PDF, and diagnostics must be able to access original source even if rendering fails.
 
+Renderer hosts and adapters may expose stable ids such as `data-source-id` for diagnostics and test targeting. They must not expose raw source, full serialized source objects, or serialized source keys through DOM attributes or `dataset` fields.
+
 ## Diagnostics Contract
 
 Diagnostics are non-fatal unless an adapter corrupts source, mutates another adapter container, or leaves duplicate live instances after unmount. Diagnostics must include renderer id and block id whenever available.

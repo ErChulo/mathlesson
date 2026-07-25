@@ -4,7 +4,6 @@ import type { AdapterDiagnostic, RendererContext } from '../../renderers/core/ty
 import {
   getPlotlySourceKey,
   plotlyAdapter,
-  serializePlotlySource,
   type PlotlyInstance,
   type PlotlySource,
 } from '../../renderers/plotly/plotlyAdapter';
@@ -52,7 +51,6 @@ export function PlotlyBlock({ source, lessonId, sectionId, theme, layoutKey, ada
       container.textContent = validation.diagnostics[0]?.message ?? 'Plotly source could not be rendered.';
       container.dataset.rendererAdapter = adapter.id;
       container.dataset.rendererSourceId = source.sourceId;
-      container.dataset.plotlySource = serializePlotlySource(source);
       setDiagnostics([...validation.diagnostics, ...nextDiagnostics]);
       return undefined;
     }
@@ -104,7 +102,7 @@ export function PlotlyBlock({ source, lessonId, sectionId, theme, layoutKey, ada
   }, [adapter, lessonId, sectionId, theme]);
 
   return (
-    <figure className="plotly-block" data-source-id={source.sourceId} data-source-plotly={serializePlotlySource(source)}>
+    <figure className="plotly-block" data-source-id={source.sourceId}>
       <div ref={containerRef} className="plotly-frame" aria-label={source.title || 'Interactive Plotly chart'} />
       {diagnostics.length ? (
         <figcaption className="renderer-diagnostic" role="status">

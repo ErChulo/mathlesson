@@ -9,7 +9,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "check": "npm run typecheck && npm run test && npm run build"
+    "safety:guard": "node tools/analysis/verify-safety-policy.mjs",
+    "check": "npm run typecheck && npm run safety:guard && npm run test && npm run build"
   },
   "dependencies": {
     "@vitejs/plugin-react": "5.1.2",

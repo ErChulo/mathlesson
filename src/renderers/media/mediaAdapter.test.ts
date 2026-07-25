@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { AdapterDiagnostic, RendererContext } from '../core/types';
-import { getMediaIdentityKey, getMediaSourceKey, mediaAdapter, type MediaSource } from './mediaAdapter';
+import { mediaAdapter, type MediaSource } from './mediaAdapter';
 
 function createContext(
   diagnostics: AdapterDiagnostic[] = [],
@@ -54,8 +54,8 @@ describe('mediaAdapter', () => {
     expect(video).toHaveAttribute('aria-label', 'A Manim animation scene');
     expect(video?.querySelector('source')).toHaveAttribute('src', 'scene.mp4');
     expect(video?.querySelector('source')).toHaveAttribute('type', 'video/mp4');
-    expect(container.dataset.mediaSource).toBe(getMediaSourceKey(videoSource));
-    expect(container.dataset.mediaIdentityKey).toBe(getMediaIdentityKey(videoSource));
+    expect(container.dataset.mediaSource).toBeUndefined();
+    expect(container.dataset.mediaIdentityKey).toBeUndefined();
     expect(container.style.aspectRatio).toBe('16 / 9');
     expect(instance.source).toBe(videoSource);
     expect(loadSpy).toHaveBeenCalledTimes(1);
@@ -74,7 +74,7 @@ describe('mediaAdapter', () => {
 
     expect(container.querySelector('video')).toBeNull();
     expect(container.querySelector('.media-placeholder')).toHaveTextContent('Media placeholder: manim-intro-scene');
-    expect(container.dataset.mediaSource).toBe(getMediaSourceKey(source));
+    expect(container.dataset.mediaSource).toBeUndefined();
   });
 
   it('reports missing media as a non-fatal validation diagnostic', () => {
@@ -156,7 +156,8 @@ describe('mediaAdapter', () => {
     expect(container.querySelector('video')).toBe(video);
     expect(video).toHaveAttribute('poster', 'poster.png');
     expect(video).toHaveAttribute('aria-label', 'Updated accessible label');
-    expect(container.dataset.mediaSource).toBe(getMediaSourceKey(nextSource));
+    expect(nextInstance?.source).toEqual(nextSource);
+    expect(container.dataset.mediaSource).toBeUndefined();
   });
 
   it('cleans up video state on unmount', () => {

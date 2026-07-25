@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import type { AdapterDiagnostic, RendererContext } from '../core/types';
 import {
   createMermaidAdapter,
-  getMermaidSourceKey,
   type MermaidRenderResult,
   type MermaidRenderer,
   type MermaidSource,
@@ -18,7 +17,7 @@ function createRenderer(overrides: Partial<MermaidRenderer> = {}) {
     render: (id, source): MermaidRenderResult => {
       calls.render.push({ id, source });
       return {
-        svg: `<svg data-render-id="${id}" data-source-length="${source.length}"><script>bad()</script><g onclick="bad()"><text>Rendered</text></g></svg>`,
+        svg: `<svg data-render-id="${id}" data-render-length="${source.length}"><script>bad()</script><g onclick="bad()"><text>Rendered</text></g></svg>`,
       };
     },
     ...overrides,
@@ -68,7 +67,7 @@ describe('mermaidAdapter', () => {
     expect(container.querySelector('svg')).not.toBeNull();
     expect(container.querySelector('script')).toBeNull();
     expect(container.innerHTML).not.toContain('onclick');
-    expect(container.dataset.mermaidSource).toBe(flowchartSource.source);
+    expect(container.dataset.mermaidSource).toBeUndefined();
     expect(instance.source).toBe(flowchartSource);
   });
 
@@ -110,7 +109,8 @@ describe('mermaidAdapter', () => {
     const nextInstance = await adapter.update?.({ source: nextSource, instance, container, context });
 
     expect(nextInstance?.source).toEqual(nextSource);
-    expect(container.dataset.rendererSourceKey).toBe(getMermaidSourceKey(nextSource));
+    expect(container.dataset.rendererSourceId).toBe(nextSource.sourceId);
+    expect(container.dataset.rendererSourceKey).toBeUndefined();
   });
 
   it('cleans up generated SVG on unmount', async () => {
@@ -124,6 +124,7 @@ describe('mermaidAdapter', () => {
     expect(container.innerHTML).toBe('');
     expect(container.dataset.rendererAdapter).toBeUndefined();
     expect(container.dataset.mermaidSource).toBeUndefined();
+    expect(container.dataset.rendererSourceKey).toBeUndefined();
   });
 
   it('preserves canonical source for export', () => {

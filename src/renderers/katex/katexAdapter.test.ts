@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { AdapterDiagnostic, RendererContext } from '../core/types';
-import { getKaTeXSourceKey, katexAdapter, type KaTeXSource } from './katexAdapter';
+import { katexAdapter, type KaTeXSource } from './katexAdapter';
 
 function createContext(diagnostics: AdapterDiagnostic[] = []): RendererContext {
   return {
@@ -77,7 +77,8 @@ describe('katexAdapter', () => {
 
     expect(nextInstance?.source).toEqual(nextSource);
     expect(container.textContent).toContain('x');
-    expect(container.dataset.rendererSourceKey).toBe(getKaTeXSourceKey(nextSource));
+    expect(container.dataset.rendererSourceId).toBe(nextSource.sourceId);
+    expect(container.dataset.rendererSourceKey).toBeUndefined();
   });
 
   it('cleans up rendered output on unmount', () => {

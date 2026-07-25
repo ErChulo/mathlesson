@@ -2,7 +2,6 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   createPlotlyAdapter,
-  serializePlotlySource,
   type PlotlyRenderer,
   type PlotlySource,
 } from '../../renderers/plotly/plotlyAdapter';
@@ -33,7 +32,7 @@ describe('PlotlyBlock', () => {
     vi.restoreAllMocks();
   });
 
-  it('mounts a Plotly chart while preserving source metadata on the host', async () => {
+  it('mounts a Plotly chart without exposing source metadata on the DOM host', async () => {
     vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(640);
     const renderer = createFakeRenderer();
     const adapter = createPlotlyAdapter(renderer);
@@ -42,7 +41,7 @@ describe('PlotlyBlock', () => {
     );
 
     await waitFor(() => expect(renderer.newPlot).toHaveBeenCalledTimes(1));
-    expect(container.querySelector('[data-source-id="test-plotly"]')).toHaveAttribute('data-source-plotly', serializePlotlySource(source));
+    expect(container.querySelector('[data-source-id="test-plotly"]')).not.toHaveAttribute('data-source-plotly');
     expect(container.querySelector('.plotly-frame')).toHaveAttribute('data-renderer-adapter', 'plotly');
   });
 
@@ -79,9 +78,6 @@ describe('PlotlyBlock', () => {
     );
 
     expect(await screen.findByRole('status')).toHaveTextContent('Plotly source must include at least one trace.');
-    expect(container.querySelector('[data-source-id="test-plotly"]')).toHaveAttribute(
-      'data-source-plotly',
-      serializePlotlySource(invalidSource),
-    );
+    expect(container.querySelector('[data-source-id="test-plotly"]')).not.toHaveAttribute('data-source-plotly');
   });
 });

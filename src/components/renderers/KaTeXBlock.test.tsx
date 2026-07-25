@@ -13,7 +13,7 @@ describe('KaTeXBlock', () => {
     );
 
     await waitFor(() => expect(container.querySelector('.katex-display')).toBeInTheDocument());
-    expect(container.querySelector('[data-source-tex="E = mc^2"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-source-id="test-katex"]')).not.toHaveAttribute('data-source-tex');
   });
 
   it('rerenders when the source changes', async () => {
@@ -38,7 +38,7 @@ describe('KaTeXBlock', () => {
     await waitFor(() => expect(container.textContent).toContain('y'));
   });
 
-  it('renders a diagnostic and preserves source for invalid TeX', async () => {
+  it('renders a diagnostic without exposing invalid TeX on the DOM host', async () => {
     const { container } = render(
       <KaTeXBlock
         lessonId="demo"
@@ -48,6 +48,6 @@ describe('KaTeXBlock', () => {
     );
 
     expect(await screen.findByRole('status')).toHaveTextContent('KaTeX could not render this source.');
-    expect(container.querySelector('[data-source-id="broken-katex"]')).toHaveAttribute('data-source-tex', '\\def');
+    expect(container.querySelector('[data-source-id="broken-katex"]')).not.toHaveAttribute('data-source-tex');
   });
 });

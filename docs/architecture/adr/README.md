@@ -23,3 +23,4 @@ These ADRs capture proposed Phase 0 decisions for the MathLesson React migration
 | [ADR-0007](adr-0007-local-agent-skills-and-tool-provenance.md) | Proposed | Project-local skills, lockfile, and security notes |
 | [ADR-0008](adr-0008-mathweaver-provenance-boundary.md) | Proposed | Defer MathWeaver inspection until after parity |
 | [ADR-0009](adr-0009-renderer-adapter-contract.md) | Proposed | Renderer adapter contract, lifecycle, fixtures, and test gates |
+| [ADR-0010](adr-0010-canonical-source-and-executable-content-policy.md) | Accepted | Canonical source ownership, DOM non-canonical enforcement, and executable content policy |
