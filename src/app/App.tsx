@@ -2,6 +2,7 @@ import { startTransition, useEffect, useState } from 'react';
 import { KaTeXBlock } from '../components/renderers/KaTeXBlock';
 import { MediaBlock } from '../components/renderers/MediaBlock';
 import { MermaidBlock } from '../components/renderers/MermaidBlock';
+import { PlotlyBlock } from '../components/renderers/PlotlyBlock';
 import { SvgBlock } from '../components/renderers/SvgBlock';
 import { usePersistentJsonState, usePersistentRawState } from '../hooks/usePersistentState';
 import { useReducedMotion } from '../hooks/useReducedMotion';
@@ -225,7 +226,7 @@ export function App() {
       <main className="content" id="content" tabIndex={-1}>
         <section className="panel-card" aria-labelledby="panel-heading">
           {'heading' in activePanel ? (
-            <LessonPanel lessonId={lesson.key} section={activePanel} theme={theme} />
+            <LessonPanel lessonId={lesson.key} layoutKey={`${layout.sidebar}:${layout.wide}`} section={activePanel} theme={theme} />
           ) : (
             <AdvancedPanelCard panel={activePanel} />
           )}
@@ -235,7 +236,17 @@ export function App() {
   );
 }
 
-function LessonPanel({ lessonId, section, theme }: { lessonId: string; section: ShellSection; theme: ThemeName }) {
+function LessonPanel({
+  layoutKey,
+  lessonId,
+  section,
+  theme,
+}: {
+  layoutKey: string;
+  lessonId: string;
+  section: ShellSection;
+  theme: ThemeName;
+}) {
   return (
     <>
       <p className="panel-eyebrow">{section.eyebrow}</p>
@@ -254,6 +265,9 @@ function LessonPanel({ lessonId, section, theme }: { lessonId: string; section: 
       ))}
       {section.mediaBlocks?.map((source) => (
         <MediaBlock key={source.sourceId} lessonId={lessonId} sectionId={section.id} source={source} />
+      ))}
+      {section.plotlyBlocks?.map((source) => (
+        <PlotlyBlock key={source.sourceId} layoutKey={layoutKey} lessonId={lessonId} sectionId={section.id} source={source} theme={theme} />
       ))}
       <div className="phase-boundary" role="note">
         Phase 2 mounts only approved adapter slices here. Quiz, authoring, import/export, MathLive, and other renderer
