@@ -83,19 +83,22 @@ describe('mermaidAdapter', () => {
     });
   });
 
-  it('reports render errors without losing source text', async () => {
+  it('reports render errors without exposing source text in the DOM fallback', async () => {
     const diagnostics: AdapterDiagnostic[] = [];
     const adapter = createMermaidAdapter({
       initialize: () => undefined,
       render: () => Promise.reject(new Error('render failed')),
     });
     const container = document.createElement('div');
+    const source = { ...flowchartSource, source: 'flowchart LR\n  A[raw-secret] --> B' };
 
-    await expect(adapter.mount({ source: flowchartSource, container, context: createContext(diagnostics) })).rejects.toThrow(
+    await expect(adapter.mount({ source, container, context: createContext(diagnostics) })).rejects.toThrow(
       'render failed',
     );
 
-    expect(container.textContent).toBe(flowchartSource.source);
+    expect(container.textContent).toBe('Mermaid diagram could not be rendered.');
+    expect(container.textContent).not.toContain('raw-secret');
+    expect(container.dataset.rendererSourceId).toBe(source.sourceId);
     expect(diagnostics).toContainEqual(expect.objectContaining({ code: 'mermaid-render-error' }));
   });
 

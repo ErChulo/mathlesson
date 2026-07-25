@@ -2,6 +2,7 @@ import { createAdapterDiagnostic, getSourceExcerpt } from '../core/diagnostics';
 import type { AdapterDiagnostic, AdapterValidation, ExportTarget, RendererAdapter, RendererContext } from '../core/types';
 
 const MERMAID_ADAPTER_ID = 'mermaid' as const;
+const MERMAID_SAFE_FALLBACK = 'Mermaid diagram could not be rendered.';
 const mermaidDiagramPattern = /^(flowchart|graph|sequenceDiagram|stateDiagram-v2|stateDiagram|classDiagram|erDiagram|journey|gantt|pie|mindmap|timeline|gitGraph|quadrantChart)\b/i;
 
 export type MermaidTheme = 'dark' | 'light';
@@ -189,7 +190,9 @@ export function createMermaidAdapter(rendererProvider: MermaidRendererProvider):
       context.reportDiagnostic(
         createMermaidDiagnostic('error', 'mermaid-render-error', 'Mermaid could not render this source.', source.source, error),
       );
-      container.textContent = source.source;
+      container.textContent = MERMAID_SAFE_FALLBACK;
+      container.dataset.rendererAdapter = MERMAID_ADAPTER_ID;
+      container.dataset.rendererSourceId = source.sourceId;
       throw error;
     }
   }

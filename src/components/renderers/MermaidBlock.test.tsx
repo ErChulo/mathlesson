@@ -60,18 +60,22 @@ describe('MermaidBlock', () => {
     );
   });
 
-  it('renders a diagnostic without exposing invalid Mermaid source on the DOM host', async () => {
+  it('renders a safe fallback diagnostic without exposing invalid Mermaid source on the DOM host', async () => {
     const { container } = render(
       <MermaidBlock
         adapter={createTestAdapter()}
         lessonId="demo"
         sectionId="math-renderers"
-        source={{ sourceId: 'broken-mermaid', diagramId: 'broken-mermaid', source: 'not a diagram' }}
+        source={{ sourceId: 'broken-mermaid', diagramId: 'broken-mermaid', source: 'not a diagram raw-secret' }}
         theme="dark"
       />,
     );
 
     expect(await screen.findByRole('status')).toHaveTextContent('Mermaid source must start with a known diagram type.');
     expect(container.querySelector('[data-source-id="broken-mermaid"]')).not.toHaveAttribute('data-source-mermaid');
+    expect(container.querySelector('[aria-label="Rendered Mermaid diagram"]')).toHaveTextContent(
+      'Mermaid diagram could not be rendered.',
+    );
+    expect(container).not.toHaveTextContent('raw-secret');
   });
 });
