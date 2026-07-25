@@ -63,4 +63,4 @@ Manual parity checklist item RND-002 remains required before claiming full Plotl
 
 ## Next Adapter Recommendation
 
-Plan Plotly Explore separately before implementation because Explore requires an explicit execution policy for baseline `data-fn` strings and slider-generated traces.
+Review `docs/migration/phase-2-plotly-explore-declarative-plan.md` before implementing Plotly Explore. Explore must use a safe declarative model and must not execute baseline `data-fn` strings.
