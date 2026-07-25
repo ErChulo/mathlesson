@@ -292,6 +292,30 @@ select:focus-visible {
   padding: 1rem;
 }
 
+.katex-block {
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  color: var(--text);
+  margin: 1.2rem 0;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+.katex-block.display {
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface-strong));
+}
+
+.katex-block.inline {
+  display: inline-block;
+  margin-right: 0.75rem;
+}
+
+.renderer-diagnostic {
+  color: var(--warning);
+  font-size: 0.9rem;
+  margin-top: 0.75rem;
+}
+
 .mobile-menu-button,
 .sidebar-backdrop {
   display: none;

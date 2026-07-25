@@ -1,4 +1,5 @@
 import { startTransition, useEffect, useState } from 'react';
+import { KaTeXBlock } from '../components/renderers/KaTeXBlock';
 import { usePersistentJsonState, usePersistentRawState } from '../hooks/usePersistentState';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import {
@@ -221,7 +222,7 @@ export function App() {
       <main className="content" id="content" tabIndex={-1}>
         <section className="panel-card" aria-labelledby="panel-heading">
           {'heading' in activePanel ? (
-            <LessonPanel section={activePanel} />
+            <LessonPanel lessonId={lesson.key} section={activePanel} />
           ) : (
             <AdvancedPanelCard panel={activePanel} />
           )}
@@ -231,7 +232,7 @@ export function App() {
   );
 }
 
-function LessonPanel({ section }: { section: ShellSection }) {
+function LessonPanel({ lessonId, section }: { lessonId: string; section: ShellSection }) {
   return (
     <>
       <p className="panel-eyebrow">{section.eyebrow}</p>
@@ -239,9 +240,12 @@ function LessonPanel({ section }: { section: ShellSection }) {
       {section.body.map((paragraph) => (
         <p key={paragraph}>{paragraph}</p>
       ))}
+      {section.mathBlocks?.map((source) => (
+        <KaTeXBlock key={source.sourceId} lessonId={lessonId} sectionId={section.id} source={source} />
+      ))}
       <div className="phase-boundary" role="note">
-        Phase 1 renders shell placeholders only. Runtime renderer, quiz, authoring, and export behavior remains in the
-        preserved baseline until its migration phase.
+        Phase 2 mounts only approved adapter slices here. Quiz, authoring, import/export, MathLive, and other renderer
+        behavior remains in the preserved baseline until its migration phase.
       </div>
     </>
   );

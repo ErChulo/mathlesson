@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { App } from './App';
 import { storageKeys } from './persistence';
@@ -10,12 +10,23 @@ describe('App shell', () => {
     document.documentElement.removeAttribute('data-motion');
   });
 
-  it('renders the Phase 1 shell without mounting deferred feature code', () => {
+  it('renders the shell without mounting deferred learner and export code', () => {
     render(<App />);
 
     expect(screen.getByRole('heading', { name: 'Framework Demo shell' })).toBeInTheDocument();
-    expect(screen.getByText(/Phase 1 renders shell placeholders only/i)).toBeInTheDocument();
+    expect(screen.getByText(/Phase 2 mounts only approved adapter slices here/i)).toBeInTheDocument();
     expect(screen.getByText(/v4.9.22 baseline preserved/i)).toBeInTheDocument();
+  });
+
+  it('mounts the KaTeX adapter in the renderer placeholder panel', async () => {
+    const { container } = render(<App />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Renderers' }));
+
+    expect(await screen.findByRole('heading', { name: 'Renderer container boundary' })).toBeInTheDocument();
+    await waitFor(() => {
+      expect(container.querySelector('[data-source-id="phase-2-katex-demo-display"] .katex-display')).toBeInTheDocument();
+    });
   });
 
   it('persists theme and layout using baseline-compatible keys', () => {
