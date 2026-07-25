@@ -265,14 +265,11 @@ function requestVideoLoad(video: HTMLVideoElement, source: MediaSource, context:
 
 function appendLoadNote(container: HTMLElement, source: MediaSource, context: RendererContext): void {
   if (container.querySelector('.video-load-note')) return;
-  const src = source.url?.trim() || 'missing src';
   const note = document.createElement('div');
   note.className = 'video-load-note';
-  note.textContent = `Video could not load: ${src}. Check filename, extension, capitalization, and folder location.`;
+  note.textContent = 'Video could not load. Check filename, extension, capitalization, and folder location.';
   container.append(note);
-  context.reportDiagnostic(
-    createMediaDiagnostic('warning', 'media-load-error', `Video could not load: ${src}.`, source, undefined, context),
-  );
+  context.reportDiagnostic(createMediaDiagnostic('warning', 'media-load-error', 'Video could not load.', source, undefined, context));
 }
 
 function createVideoElement(source: MediaSource, container: HTMLElement, context: RendererContext): MediaInstance {

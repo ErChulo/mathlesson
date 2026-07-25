@@ -103,15 +103,17 @@ describe('mediaAdapter', () => {
     expect(validation.diagnostics.at(-1)).toMatchObject({ code: 'media-invalid-dimensions' });
   });
 
-  it('appends a load note and diagnostic when the video emits an error', () => {
+  it('appends a safe load note and diagnostic when the video emits an error', () => {
     vi.spyOn(HTMLMediaElement.prototype, 'load').mockImplementation(() => undefined);
     const diagnostics: AdapterDiagnostic[] = [];
     const container = document.createElement('div');
+    const source = { ...videoSource, url: 'private/raw-secret-scene.mp4' };
 
-    mediaAdapter.mount({ source: videoSource, container, context: createContext(diagnostics) });
+    mediaAdapter.mount({ source, container, context: createContext(diagnostics) });
     container.querySelector('video')?.dispatchEvent(new Event('error'));
 
-    expect(container.querySelector('.video-load-note')).toHaveTextContent('Video could not load: scene.mp4.');
+    expect(container.querySelector('.video-load-note')).toHaveTextContent('Video could not load.');
+    expect(container.querySelector('.video-load-note')).not.toHaveTextContent('raw-secret');
     expect(diagnostics).toContainEqual(expect.objectContaining({ code: 'media-load-error' }));
   });
 
