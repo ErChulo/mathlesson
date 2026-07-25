@@ -55,7 +55,7 @@ This slice does not revive baseline `lesson.plots[key]` function strings, execut
 
 This slice does not migrate MathLive, quizzes, inline exercises, JSXGraph, Arquero, calculators, statistics engines, CodeMirror, or GSAP behavior.
 
-The dynamically imported Plotly package is a large lazy chunk. That is expected for the full baseline-compatible package and should be revisited with manual chunking or renderer preloading only after more dependency-bearing adapters are in place.
+The dynamically imported Plotly package is a large lazy chunk. ADR-0011 documents the accepted lazy Plotly budget and `npm run bundle:report` measures it after production builds.
 
 ## Manual Tests
 

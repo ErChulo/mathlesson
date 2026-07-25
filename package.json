@@ -10,7 +10,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "safety:guard": "node tools/analysis/verify-safety-policy.mjs",
-    "check": "npm run typecheck && npm run safety:guard && npm run test && npm run build"
+    "bundle:report": "node tools/analysis/report-renderer-bundles.mjs",
+    "check": "npm run typecheck && npm run safety:guard && npm run test && npm run build && npm run bundle:report"
   },
   "dependencies": {
     "@vitejs/plugin-react": "5.1.2",
