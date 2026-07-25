@@ -1,6 +1,7 @@
 import type { KaTeXSource } from '../renderers/katex/katexAdapter';
 import type { MediaSource } from '../renderers/media/mediaAdapter';
 import type { MermaidSource } from '../renderers/mermaid/mermaidAdapter';
+import type { PlotlySource } from '../renderers/plotly/plotlyAdapter';
 import type { SvgSource } from '../renderers/svg/svgAdapter';
 
 export type ShellSection = {
@@ -12,6 +13,7 @@ export type ShellSection = {
   mathBlocks?: KaTeXSource[];
   mediaBlocks?: MediaSource[];
   mermaidBlocks?: Array<Omit<MermaidSource, 'theme'>>;
+  plotlyBlocks?: PlotlySource[];
   svgBlocks?: SvgSource[];
 };
 
@@ -40,7 +42,7 @@ export const phaseOneLessons: ShellLesson[] = [
         heading: 'Framework Demo shell',
         body: [
           'Phase 1 preserves the application frame and navigation pattern without migrating renderer internals.',
-          'This panel is placeholder content. KaTeX, MathLive, Plotly, Mermaid, JSXGraph, Arquero, quiz, authoring, and export runtimes remain scheduled for later phases.',
+          'This panel is placeholder content. MathLive, legacy Plotly/Explore, JSXGraph, Arquero, quiz, authoring, and export runtimes remain scheduled for later phases.',
         ],
       },
       {
@@ -50,7 +52,7 @@ export const phaseOneLessons: ShellLesson[] = [
         heading: 'Renderer container boundary',
         body: [
           'The eventual renderer host will attach adapter lifecycles to stable DOM containers.',
-          'Phase 2 starts with one narrow adapter at a time. KaTeX is mounted through a dedicated host while other renderers remain deferred.',
+          'Phase 2 mounts one narrow adapter at a time. Current demos use explicit React-owned sources and do not scan arbitrary baseline HTML.',
         ],
         mathBlocks: [
           {
@@ -88,6 +90,38 @@ export const phaseOneLessons: ShellLesson[] = [
             altText: 'Placeholder for a future Manim unit circle animation.',
             dimensions: { width: 16, height: 9 },
             transcript: 'A future animation will trace points moving around the unit circle.',
+          },
+        ],
+      },
+      {
+        id: 'plotly-renderer',
+        label: 'Plotly',
+        eyebrow: 'Structured Plotly adapter',
+        heading: 'Base Plotly chart boundary',
+        body: [
+          'This section mounts a structured Plotly source through the Phase 2 adapter boundary.',
+          'Legacy function-string plots, Plotly Explore sliders, statistics plots, and export runtimes remain deferred until their execution and source policies are approved.',
+        ],
+        plotlyBlocks: [
+          {
+            sourceId: 'phase-2-plotly-demo-line-chart',
+            plotId: 'phase-2-plotly-demo-line-chart',
+            title: 'Quadratic growth demo',
+            height: 320,
+            data: [
+              {
+                x: [0, 1, 2, 3, 4],
+                y: [0, 1, 4, 9, 16],
+                mode: 'lines+markers',
+                type: 'scatter',
+                name: 'y = x^2',
+              },
+            ],
+            layout: {
+              xaxis: { title: 'x' },
+              yaxis: { title: 'y' },
+            },
+            config: { displayModeBar: false, responsive: true },
           },
         ],
       },
